@@ -9,6 +9,7 @@ public class UIMainMenuRootBinder : MonoBehaviour
     private Subject<Unit> _exitSceneSignalSubj;
 
 
+    //Button
     public void HandleGoToMainMenuButtonClicked()
     {
 

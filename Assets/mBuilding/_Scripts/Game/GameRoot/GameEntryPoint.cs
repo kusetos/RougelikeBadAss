@@ -56,31 +56,41 @@ namespace mBuilding.Scripts
         }
         private IEnumerator LoadAndStartGameplay(GameplayEnterParams enterParams)
         {
+            /// show loading screen
             _uiRoot.ShowLoadingScreen();
 
+            ///load scenes
             yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.GAMEPLAY);
 
-
             var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
-            sceneEntryPoint.Run(_uiRoot, enterParams).Subscribe(gameplayExitParams =>
+
+            /// startup gameplay scene UI and prepare ExitParams in Run();
+            Observable<GameplayExitParams> exitToMainMenuSignal = sceneEntryPoint.Run(_uiRoot, enterParams);
+
+            /// subscribe exitToMenu button 
+            exitToMainMenuSignal.Subscribe(gameplayExitParams =>
             {
                 _coroutines.StartCoroutine(LoadAndStartMainMenu(gameplayExitParams.MainMenuEnterParams));
-
             });
 
+            ///hide screen
             _uiRoot.HideLoadingScreen();
         }
         private IEnumerator LoadAndStartMainMenu(MainMenuEnterParams enterParams = null)
         {
+            ///show loading screen
             _uiRoot.ShowLoadingScreen();
 
+            ///load Scenes
             yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.MAIN_MENU);
 
-
             var sceneEntryPoint = Object.FindFirstObjectByType<MainMenuEntryPoint>();
-            sceneEntryPoint.Run(_uiRoot, enterParams).Subscribe(mainMenuExitParams =>
+
+            ///startup menu scene UI and prepare ExitParams in Run() 
+            Observable<MainMenuExitParams> exitToGameplaySignal = sceneEntryPoint.Run(_uiRoot, enterParams);
+            exitToGameplaySignal.Subscribe(mainMenuExitParams =>
             {
                 var targetSceneName = mainMenuExitParams.TargetSceneEnterParams.SceneName;
                 if(targetSceneName == Scenes.GAMEPLAY)
@@ -89,6 +99,7 @@ namespace mBuilding.Scripts
                 }
             });
 
+            ///hide loading screen
             _uiRoot.HideLoadingScreen();
         }
         private IEnumerator LoadScene(string sceneName)

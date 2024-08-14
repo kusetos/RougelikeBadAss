@@ -10,7 +10,17 @@ public class R3Example : MonoBehaviour
 {
     void Start()
     {
-        Ex9(); 
+        var subject = new Subject<Unit>();
+
+        // Use Select to map Unit to a message string
+        var observable = subject.Select(_ => "Event Triggered!");
+
+        // Subscribe to the observable
+        observable.Subscribe(message => Debug.Log(message));
+
+        // Emit Unit.Default to trigger the event
+        subject.OnNext(Unit.Default);
+        subject.OnNext(Unit.Default);
     }
     //reactive property
     private void Ex1()

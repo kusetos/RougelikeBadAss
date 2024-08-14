@@ -12,22 +12,26 @@ namespace mBuilding.Scripts
 
         [SerializeField] private UIGameplayRootBinder _sceneUIRootPrefab;
 
-        //, GameplayEnterParams enterParams
         public Observable<GameplayExitParams> Run(UIRootView uIRootView, GameplayEnterParams enterParams)
         {
+            /// setup gameplay UI
             var uiScene = Instantiate(_sceneUIRootPrefab);
-            Debug.Log("Gameplay Scene Loaded");
             uIRootView.AttachSceneUI(uiScene.gameObject);
 
+            /// Bind Subject to (GoToMenu)Button
             var exitSceneSignalSubj = new Subject<Unit>();
             uiScene.Bind(exitSceneSignalSubj);
 
             Debug.Log($"Gameplay Entry Point: save file: {enterParams.SaveFileName}, level:{enterParams.LevelNumber}");
+
+            ///Setup menu enter Params
             var mainMenuExitParams = new MainMenuEnterParams("Fatality");
             var exitParams = new GameplayExitParams(mainMenuExitParams);
-            var exitToMainMenuSignal = exitSceneSignalSubj.Select(_ => exitParams);
 
+            /// create observer with exit params
+            Observable<GameplayExitParams> exitToMainMenuSignal = exitSceneSignalSubj.Select(_ => exitParams);
             return exitToMainMenuSignal;
+
 
         }
     }
