@@ -25,8 +25,8 @@ namespace mBuilding.Scripts
             Debug.Log($"Gameplay Entry Point: save file: {enterParams.SaveFileName}, level:{enterParams.LevelNumber}");
 
             ///Setup menu enter Params
-            var mainMenuExitParams = new MainMenuEnterParams("Fatality");
-            var exitParams = new GameplayExitParams(mainMenuExitParams);
+            var mainMenuEnterParams = new MainMenuEnterParams("Fatality");
+            var exitParams = new GameplayExitParams(mainMenuEnterParams);
 
             /// create observer with exit params
             Observable<GameplayExitParams> exitToMainMenuSignal = exitSceneSignalSubj.Select(_ => exitParams);

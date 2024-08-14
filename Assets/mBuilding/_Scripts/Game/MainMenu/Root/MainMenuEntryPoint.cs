@@ -21,13 +21,14 @@ public class MainMenuEntryPoint : MonoBehaviour
         var exitSignalSubj = new Subject<Unit>();
         uiScene.Bind(exitSignalSubj);
 
-        /// setup game Enter Params
+        /// setup Gameplay Enter Params
         string saveFileName = "noviFile.save";
         int levelNumber = 69;
         var gameplayEnterParams = new GameplayEnterParams(Scenes.GAMEPLAY, saveFileName, levelNumber);
 
-        var mainMenuExitParams = new MainMenuExitParams(gameplayEnterParams);
 
+        /// create observer with exit params
+        var mainMenuExitParams = new MainMenuExitParams(gameplayEnterParams);
         Observable<MainMenuExitParams> exitToGameplaySignal = exitSignalSubj.Select(_ => mainMenuExitParams);
         Debug.Log($"Mainmenu entry POINT Results: {enterParams?.Results}");
 

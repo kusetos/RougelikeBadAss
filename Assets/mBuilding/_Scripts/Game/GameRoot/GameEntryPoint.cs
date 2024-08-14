@@ -54,6 +54,8 @@ namespace mBuilding.Scripts
 #endif
             _coroutines.StartCoroutine(LoadAndStartMainMenu());
         }
+
+        ///GAMEPLAY LOADER
         private IEnumerator LoadAndStartGameplay(GameplayEnterParams enterParams)
         {
             /// show loading screen
@@ -77,6 +79,8 @@ namespace mBuilding.Scripts
             ///hide screen
             _uiRoot.HideLoadingScreen();
         }
+
+        /// MENU LOADER
         private IEnumerator LoadAndStartMainMenu(MainMenuEnterParams enterParams = null)
         {
             ///show loading screen
@@ -95,7 +99,7 @@ namespace mBuilding.Scripts
                 var targetSceneName = mainMenuExitParams.TargetSceneEnterParams.SceneName;
                 if(targetSceneName == Scenes.GAMEPLAY)
                 {
-                    _coroutines.StartCoroutine(LoadAndStartGameplay(mainMenuExitParams.TargetSceneEnterParams.As<GameplayEnterParams>()));
+                    _coroutines.StartCoroutine(LoadAndStartGameplay(mainMenuExitParams.TargetSceneEnterParams as GameplayEnterParams));
                 }
             });
 
