@@ -1,4 +1,5 @@
 using mBuilding.Scripts;
+using R3;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,19 +8,24 @@ using UnityEngine;
 public class MainMenuEntryPoint : MonoBehaviour
 {
     //[SerializeField] private GameObject _sceneRootBinder;
-    public event Action GoToGameplaySceneRequested;
 
     [SerializeField] private UIMainMenuRootBinder _sceneUIRootPrefab;
 
-    public void Run(UIRootView uIRootView)
+    public Observable<MainMenuExitParams> Run(UIRootView uIRootView, MainMenuEnterParams enterParams)
     {
         var uiScene = Instantiate(_sceneUIRootPrefab);
         uIRootView.AttachSceneUI(uiScene.gameObject);
 
-        uiScene.GoToGameplayButtonClicked += () =>
-        {
-            GoToGameplaySceneRequested?.Invoke();
-        };
+        var exitSignalSubj = new Subject<Unit>();
+        uiScene.Bind(exitSignalSubj);
 
+        string saveFileName = "noviFile.save";
+        int levelNumber = 69;
+        var gameplayEnterParams = new GameplayEnterParams(Scenes.GAMEPLAY, saveFileName, levelNumber);
+        var mainMenuExitParams = new MainMenuExitParams(gameplayEnterParams);
+        var exitToGameplaySignal = exitSignalSubj.Select(_ => mainMenuExitParams);
+        Debug.Log($"Mainmenu entry POINT Results: {enterParams?.Results}");
+
+        return exitToGameplaySignal;
     }
 }
