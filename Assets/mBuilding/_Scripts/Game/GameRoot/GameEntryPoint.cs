@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using R3;
+using Zenject;
 
 namespace mBuilding.Scripts
 {
@@ -42,7 +43,7 @@ namespace mBuilding.Scripts
                 _coroutines.StartCoroutine(LoadAndStartGameplay(gameplayEnterParams));
                 return;
             }
-            if(sceneName == Scenes.MAIN_MENU)
+            if(sceneName == Scenes.MAIN_MENU || sceneName == Scenes.BOOT)
             {
                 _coroutines.StartCoroutine(LoadAndStartMainMenu());
             }

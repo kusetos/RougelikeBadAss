@@ -8,7 +8,7 @@ using System.Linq;
 
 public class R3Example : MonoBehaviour
 {
-    void Start()
+/*    void Start()
     {
         var subject = new Subject<Unit>();
 
@@ -21,7 +21,7 @@ public class R3Example : MonoBehaviour
         // Emit Unit.Default to trigger the event
         subject.OnNext(Unit.Default);
         subject.OnNext(Unit.Default);
-    }
+    }*/
     //reactive property
     private void Ex1()
     {
