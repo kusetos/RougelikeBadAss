@@ -43,7 +43,7 @@ namespace mBuilding.Scripts
                 _coroutines.StartCoroutine(LoadAndStartGameplay(gameplayEnterParams));
                 return;
             }
-            if(sceneName == Scenes.MAIN_MENU)
+            if(sceneName == Scenes.MAIN_MENU || sceneName == Scenes.BOOT)
             {
                 _coroutines.StartCoroutine(LoadAndStartMainMenu());
             }
