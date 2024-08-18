@@ -1,65 +1,67 @@
+using Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement;
+using Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash;
 using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Zenject;
 
-public class CharacterMovemet : MonoBehaviour
+public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
 {
     [SerializeField] private TextMeshProUGUI _speedText;
 
 
     private Camera _cam;
     private PlayerInput _input;
-    private InputAction _moveAction;
+    private InputAction _moveAction, _dashAction;
     private CharacterController _characterController;
 
-    #region Movement
-    [Header("Moving Config")]
-    [SerializeField] private float _movingSpeed;
-    [Range(1f, 20f)][SerializeField] private float _smoothSpeed;
-    private Vector3 _inputDir;
-    private Vector3 _smoothMovementInput = Vector3.zero;
-    //private bool _isMoving = false;
-    #endregion
-    [SerializeField] private PlayerGravity _gravity;
+    private PlayerGravity _gravity;
+    private MovementWithDash _movement;
+    //Change to ScriptableObject
+
+    public Button ForceDashButton; 
+    public Button SprintDashButton; 
+    public Button SlowDownDashButton; 
+
 
     [Inject]
-    public void Constructor(PlayerInput input, CharacterController characterController)
+    public void Constructor(PlayerInput input, CharacterController characterController, PlayerGravity gravity, MovementWithDash movement)
     {
         _input = input;
         _characterController = characterController;
-        _moveAction = _input.PlayerControls.MoveAction;
+        _gravity = gravity;
+        _movement = movement;
+
         Debug.Log("Ready to move");
     }
+    public void OnEnable()
+    {
+        _moveAction = _input.PlayerControls.MoveAction;
 
+        _dashAction = _input.PlayerControls.DashAction;
+        _dashAction.performed += _dashAction_performed;
+        _dashAction.canceled += _dashAction_canceled;
+
+        _movement.ResetSpeedMultiplier();
+    }
+
+    private void _dashAction_canceled(InputAction.CallbackContext obj)
+    {
+        _movement.ResetSpeedMultiplier();
+    }
+
+    private void _dashAction_performed(InputAction.CallbackContext obj)
+    {
+        _movement.DoDash();
+        Debug.Log("Dash");
+    }
+                                        
     private void Update()
     {
-        MoveLogic();
-        GravityUpdate();
-    }
-
-    private void CalculateMovementSmoothing()
-    {
-
-        _smoothMovementInput = Vector3.Lerp(_smoothMovementInput, GetDirection, Time.deltaTime * _smoothSpeed);
-    }
-    private void MoveLogic()
-    {
-
-        CalculateMovementSmoothing();
-        Vector3 moving = ((_smoothMovementInput * _movingSpeed) + _gravity.Velocity) * Time.deltaTime;
-
-        _characterController.Move(moving);
-
-        if (_smoothMovementInput.magnitude <= 0.001f)
-            _smoothMovementInput = Vector3.zero;
-
-    }
-    private void UpdateSpeedUI()
-    {
-        if (_speedText)
-            _speedText.text = ((int)(_smoothMovementInput.magnitude * Time.deltaTime * _movingSpeed * 1000)).ToString();
+        _characterController.Move(_movement.MoveUpdate(GetDirection));
+        _gravity.GravityUpdate(_characterController);
     }
 
     private void FixedUpdate() => UpdateSpeedUI();
@@ -72,17 +74,27 @@ public class CharacterMovemet : MonoBehaviour
             return new Vector3(inputMovement.x, 0, inputMovement.y);
         }
     }
-    private void GravityUpdate()
+    public virtual void UpdateSpeedUI()
     {
-        if (!_characterController.isGrounded)
+        if (_speedText)
         {
-            _gravity.UpdateVelocity();
-        }
-        else
-        {
-            _gravity.ResetVelocity();
+            float horizontalMagtitude = new Vector3
+                (_movement.MoveUpdate(GetDirection).x
+                ,0f
+                ,_movement.MoveUpdate(GetDirection).z)
+                .magnitude;
+            _speedText.text = ((int)(horizontalMagtitude * 1000)).ToString();
         }
     }
 
+    public void Dispose()
+    {
+        _dashAction.performed -= _dashAction_performed;
+        _dashAction.canceled -= _dashAction_canceled;
+    }
 
+    public void Initialize()
+    {
+        ForceDashButton.onClick.AddListener(_movement.SwitchDash(new ForceDash()));
+    }
 }
