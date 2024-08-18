@@ -2,20 +2,23 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement
 {
     public class MovementWithDash : BaseMovement
     {
+        public JumpDash jumpDash = new();
+        public SprintDash sprintDash = new();
+        public SlowDownDash slowDownDash = new();
+        public QuickDash quickDash = new();
+
         private IDashable _currentDash;
 
         private float _speedMultiplier = 1f;
 
         public MovementWithDash(BaseMovementConfig config)
-            : base(config)
-        {
-            _currentDash = new SprintDash();
-        }
+            : base(config){}
 
         public override Vector3 MoveUpdate(Vector3 direction)
         {
@@ -33,6 +36,8 @@ namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement
         }
         public void SwitchDash(IDashable newDash)
         {
+            if (newDash == _currentDash) return;
+            Debug.Log("Switchj DASH");
             _currentDash = newDash;
         }
 

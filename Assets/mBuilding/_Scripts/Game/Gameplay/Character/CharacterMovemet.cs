@@ -12,9 +12,7 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
     [SerializeField] private TextMeshProUGUI _speedText;
 
 
-    private Camera _cam;
-    private PlayerInput _input;
-    private InputAction _moveAction, _dashAction;
+    private IMoveInput _input;
     private CharacterController _characterController;
 
     private PlayerGravity _gravity;
@@ -24,10 +22,11 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
     public Button ForceDashButton; 
     public Button SprintDashButton; 
     public Button SlowDownDashButton; 
+    public Button QuickDashButton; 
 
 
     [Inject]
-    public void Constructor(PlayerInput input, CharacterController characterController, PlayerGravity gravity, MovementWithDash movement)
+    public void Constructor(IMoveInput input, CharacterController characterController, PlayerGravity gravity, MovementWithDash movement)
     {
         _input = input;
         _characterController = characterController;
@@ -36,65 +35,48 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
 
         Debug.Log("Ready to move");
     }
-    public void OnEnable()
-    {
-        _moveAction = _input.PlayerControls.MoveAction;
-
-        _dashAction = _input.PlayerControls.DashAction;
-        _dashAction.performed += _dashAction_performed;
-        _dashAction.canceled += _dashAction_canceled;
-
-        _movement.ResetSpeedMultiplier();
-    }
-
-    private void _dashAction_canceled(InputAction.CallbackContext obj)
-    {
-        _movement.ResetSpeedMultiplier();
-    }
-
-    private void _dashAction_performed(InputAction.CallbackContext obj)
-    {
-        _movement.DoDash();
-        Debug.Log("Dash");
-    }
-                                        
+                              
     private void Update()
     {
-        _characterController.Move(_movement.MoveUpdate(GetDirection));
+        Vector3 motion = _movement.MoveUpdate(_input.GetDirection) + _gravity.Velocity * Time.deltaTime;    
+        _characterController.Move(motion);
         _gravity.GravityUpdate(_characterController);
     }
 
     private void FixedUpdate() => UpdateSpeedUI();
 
-    public Vector3 GetDirection
-    {
-        get
-        {
-            Vector2 inputMovement = _moveAction.ReadValue<Vector2>();
-            return new Vector3(inputMovement.x, 0, inputMovement.y);
-        }
-    }
     public virtual void UpdateSpeedUI()
     {
         if (_speedText)
         {
             float horizontalMagtitude = new Vector3
-                (_movement.MoveUpdate(GetDirection).x
+                (_movement.MoveUpdate(_input.GetDirection).x
                 ,0f
-                ,_movement.MoveUpdate(GetDirection).z)
+                ,_movement.MoveUpdate(_input.GetDirection).z)
                 .magnitude;
             _speedText.text = ((int)(horizontalMagtitude * 1000)).ToString();
         }
     }
+/*    [Inject] private JumpDash _jumpDash;
+    [Inject] private SprintDash _sprintDash;
+    [Inject] private SlowDownDash _slowDownDash;
+    [Inject] private QuickDash _quickDash;*/
+    public void Initialize()
+    {
+        _movement.ResetSpeedMultiplier();
+
+        /*        ForceDashButton.onClick.AddListener(delegate { _movement.SwitchDash(_jumpDash); });
+                SprintDashButton.onClick.AddListener(delegate { _movement.SwitchDash(_sprintDash); });
+                SlowDownDashButton.onClick.AddListener(delegate { _movement.SwitchDash(_slowDownDash); });
+                QuickDashButton.onClick.AddListener(delegate { _movement.SwitchDash(_quickDash); });*/
+        ForceDashButton.onClick.AddListener(delegate { _movement.SwitchDash(_movement.jumpDash); });
+        SprintDashButton.onClick.AddListener(delegate { _movement.SwitchDash(_movement.sprintDash); });
+        SlowDownDashButton.onClick.AddListener(delegate { _movement.SwitchDash(_movement.slowDownDash); });
+        QuickDashButton.onClick.AddListener(delegate { _movement.SwitchDash(_movement.quickDash); });
+        _movement.SwitchDash(_movement.sprintDash);
+    }
 
     public void Dispose()
     {
-        _dashAction.performed -= _dashAction_performed;
-        _dashAction.canceled -= _dashAction_canceled;
-    }
-
-    public void Initialize()
-    {
-        ForceDashButton.onClick.AddListener(_movement.SwitchDash(new ForceDash()));
     }
 }

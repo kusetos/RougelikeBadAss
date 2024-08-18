@@ -4,20 +4,19 @@ using Zenject;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash
 {
-    public class SprintDash : IDashable
+    public class SlowDownDash : IDashable
     {
-
-        private float _sprintSpeed = 1.5f;
+        private float _slowMultiplier = 0.7f;
         private MovementWithDash _movement;
         [Inject]
-        public void Constructor(MovementWithDash movementWithDash, float sprintSpeed)
+        public void Constructor(MovementWithDash movementWithDash, float slowMultiplier)
         {
             _movement = movementWithDash;
-            _sprintSpeed = sprintSpeed;
+            _slowMultiplier = slowMultiplier;
         }
         public void Dash(MovementWithDash movement)
         {
-            movement.SetSpeedMultiplier = _sprintSpeed;
+            movement.SetSpeedMultiplier = _slowMultiplier;
         }
     }
 }
