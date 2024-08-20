@@ -37,8 +37,14 @@ public class CharacterSystemInstaller : MonoInstaller
 
         MovementWithDash _movement = new (_moveConfig);
         Container.
-            Bind<MovementWithDash>()
+            BindInterfacesAndSelfTo<MovementWithDash>()
             .FromInstance(_movement)
+            .AsCached();
+
+        BaseMovement _basemovement = new(_moveConfig);
+        Container.
+            BindInterfacesAndSelfTo<BaseMovement>()
+            .FromInstance(_basemovement)
             .AsCached();
 
         //BindDashes();
@@ -62,7 +68,7 @@ public class CharacterSystemInstaller : MonoInstaller
     private void BindDashes()
     {
 
-        Container
+/*        Container
             .Bind<SlowDownDash>()
             .AsSingle()
             .WithArguments(0.7f);
@@ -77,7 +83,7 @@ public class CharacterSystemInstaller : MonoInstaller
         Container
             .Bind<QuickDash>()
             .AsSingle()
-            .WithArguments(new Vector3(0f, 1f, 10f));
+            .WithArguments(new Vector3(0f, 1f, 10f));*/
 
     }
 }

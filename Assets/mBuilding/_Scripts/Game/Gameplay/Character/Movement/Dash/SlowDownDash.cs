@@ -4,19 +4,23 @@ using Zenject;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash
 {
-    public class SlowDownDash : IDashable
+    [CreateAssetMenu(fileName = "new SlowDownDash", menuName = "Movement/Dashes/SlowDash") ]
+    public class SlowDownDash : DashStrategy
     {
-        private float _slowMultiplier = 0.7f;
-        private MovementWithDash _movement;
-        [Inject]
-        public void Constructor(MovementWithDash movementWithDash, float slowMultiplier)
+        public float _slowMultiplier = 0.7f;
+        
+
+        public override void DoDash(Transform transform)
         {
-            _movement = movementWithDash;
-            _slowMultiplier = slowMultiplier;
+            CharacterMovemet characterMovemet = transform.GetComponent<CharacterMovemet>();
+            characterMovemet.SetSpeedMultiplier = _slowMultiplier;
+            Debug.Log("Slowing down");
         }
-        public void Dash(MovementWithDash movement)
+
+        public override void StopDash(Transform transform)
         {
-            movement.SetSpeedMultiplier = _slowMultiplier;
+            CharacterMovemet characterMovemet = transform.GetComponent<CharacterMovemet>();
+            characterMovemet.ResetSpeedMultiplier();
         }
     }
 }

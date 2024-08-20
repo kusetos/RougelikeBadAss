@@ -6,14 +6,18 @@ using Zenject;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement
 {
-    public class MovementWithDash : BaseMovement
+    public class MovementWithDash : BaseMovement, IInitializable
     {
-        public JumpDash jumpDash = new();
-        public SprintDash sprintDash = new();
-        public SlowDownDash slowDownDash = new();
-        public QuickDash quickDash = new();
+/*        [Inject]
+        public JumpDash jumpDash;
+        [Inject]
+        public SprintDash sprintDash;
+        [Inject]
+        public SlowDownDash slowDownDash;
+        [Inject]
+        public QuickDash quickDash;*/
 
-        private IDashable _currentDash;
+        private DashStrategy _currentDash;
 
         private float _speedMultiplier = 1f;
 
@@ -30,16 +34,22 @@ namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement
         }
         public float SetSpeedMultiplier { set { _speedMultiplier = value; } }
 
-        public void DoDash()
-        {
-            _currentDash.Dash(this);
-        }
-        public void SwitchDash(IDashable newDash)
+        public void SwitchDash(DashStrategy newDash)
         {
             if (newDash == _currentDash) return;
-            Debug.Log("Switchj DASH");
-            _currentDash = newDash;
+            Debug.Log("Switch DASH");
+
+            _currentDash = (DashStrategy)newDash;
         }
 
+        public void DoDash(Transform transform)
+        {
+            _currentDash.DoDash(transform);
+        }
+
+        public void Initialize()
+        {
+            Debug.Log("Intit movement with dash");
+        }
     }
 }

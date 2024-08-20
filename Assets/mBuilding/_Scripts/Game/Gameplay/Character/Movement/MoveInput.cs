@@ -11,33 +11,29 @@ namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement
         private PlayerInput _input;
         private InputAction _moveAction, _dashAction;
 
-        private MovementWithDash _movement;
 
         [Inject] 
-        public void Constructor(PlayerInput input, MovementWithDash movement)
+        public void Constructor(PlayerInput input)
         {
             _input = input;
-            _movement = movement;
             _moveAction = _input.PlayerControls.MoveAction;
             _dashAction = _input.PlayerControls.DashAction;
 
-            _dashAction.started += dashAction_started;
-            _dashAction.canceled += dashAction_canceled;
+
+            _dashAction.started += DashAction_started;
+            _dashAction.canceled += DashAction_canceled;
+        }
+        public event Action DashAction;
+        public event Action StopDashAction;
+
+        private void DashAction_canceled(InputAction.CallbackContext obj)
+        {
+            StopDashAction?.Invoke();   
         }
 
-        public void DashAction()
+        private void DashAction_started(InputAction.CallbackContext obj)
         {
-            _movement.DoDash();
-        }
-
-        private void dashAction_canceled(InputAction.CallbackContext obj)
-        {
-            _movement.ResetSpeedMultiplier();
-        }
-
-        private void dashAction_started(InputAction.CallbackContext obj)
-        {
-            DashAction();
+            DashAction?.Invoke();
         }
 
         public Vector3 GetDirection

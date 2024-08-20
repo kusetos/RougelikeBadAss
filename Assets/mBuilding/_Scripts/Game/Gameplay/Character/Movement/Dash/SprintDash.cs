@@ -4,20 +4,24 @@ using Zenject;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash
 {
-    public class SprintDash : IDashable
+    [CreateAssetMenu(fileName = "new SprintDash", menuName = "Movement/Dashes/SprintDash")]
+
+    public class SprintDash : DashStrategy
     {
 
-        private float _sprintSpeed = 1.5f;
-        private MovementWithDash _movement;
-        [Inject]
-        public void Constructor(MovementWithDash movementWithDash, float sprintSpeed)
+        public float _sprintSpeed = 1.5f;
+
+
+        public override void DoDash(Transform transform)
         {
-            _movement = movementWithDash;
-            _sprintSpeed = sprintSpeed;
+            CharacterMovemet characterMovemet = transform.GetComponent<CharacterMovemet>();
+            characterMovemet.SetSpeedMultiplier = _sprintSpeed;
+            Debug.Log("Sprint");
         }
-        public void Dash(MovementWithDash movement)
+        public override void StopDash(Transform transform)
         {
-            movement.SetSpeedMultiplier = _sprintSpeed;
+            CharacterMovemet characterMovemet = transform.GetComponent<CharacterMovemet>();
+            characterMovemet.ResetSpeedMultiplier();
         }
     }
 }
