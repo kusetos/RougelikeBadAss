@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1552c6245e11453aa8da8e13a5032ac, type: 3}
   m_Name: 1_HealthStat
   m_EditorClassIdentifier: 
-  _statInfo: basic health info
+  _statInfo: basic health info 2
   _hitPoints: 20

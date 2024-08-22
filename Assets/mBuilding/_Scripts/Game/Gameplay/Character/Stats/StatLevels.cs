@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 [CreateAssetMenu(fileName = "new StatLevels", menuName = "Stats/StatLevels")]
 public class StatLevels : ScriptableObject
 {
