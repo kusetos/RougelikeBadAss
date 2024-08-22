@@ -23,8 +23,8 @@ namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement
             _dashAction.started += DashAction_started;
             _dashAction.canceled += DashAction_canceled;
         }
-        public event Action DashAction;
-        public event Action StopDashAction;
+        public event Action DashAction = delegate {};
+        public event Action StopDashAction = delegate {};
 
         private void DashAction_canceled(InputAction.CallbackContext obj)
         {

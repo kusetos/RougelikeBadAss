@@ -182,20 +182,20 @@ public class R3Example : MonoBehaviour
         {
             texts.Add($"Step {i}");
         }
-        var defferedPrints = texts.Select((text, index) => Observable.Defer(() => Print9(text)));
-        var queuedPrints = Observable.Concat(defferedPrints);
-        var lastPrint = queuedPrints.TakeLast(1);
-        lastPrint.Subscribe(newValue =>
-        {
-            Debug.Log("All elements is over");
-        });                                         
+        // var defferedPrints = texts.Select((text, index) => Observable.Defer(() => Print9(text)));
+        // var queuedPrints = Observable.Concat(defferedPrints);
+        // var lastPrint = queuedPrints.TakeLast(1);
+        // lastPrint.Subscribe(newValue =>
+        // {
+        //     Debug.Log("All elements is over");
+        // });                                         
 
     }
-    private Observable<Unit> Print9(string text)
-    {
-        Debug.Log(text);
-        return Observable.Timer(TimeSpan.FromSeconds(1), UnityTimeProvider.UpdateIgnoreTimeScale);
-    }
+    // private Observable<Unit> Print9(string text)
+    // {
+    //     Debug.Log(text);
+    //     return Observable.Timer(TimeSpan.FromSeconds(1), UnityTimeProvider.UpdateIgnoreTimeScale);
+    // }
 
 
 
