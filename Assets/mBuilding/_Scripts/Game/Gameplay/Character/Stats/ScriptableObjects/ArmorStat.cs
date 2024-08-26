@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 [CreateAssetMenu(fileName ="new ArmorStat", menuName = "Stats/Armor Stat")]
 public class ArmorStat : BaseStat
 {
-    [SerializeField][Range(0f, 1f)] private float _armor;
-    public float Armor => _armor; 
+    public override float Value => base.Value / 100f;
 }

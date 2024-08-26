@@ -19,17 +19,16 @@ namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement
             _speedSmoothing = config.SpeedSmoothing;
 
         }
-        public Vector3 CalculateMovementSmoothing(Vector3 direction)
+        public void CalculateMovementSmoothing(Vector3 direction)
         {
-            _smoothMovementInput = Vector3.Lerp(_smoothMovementInput, direction, Time.deltaTime * _speedSmoothing);
-            return _smoothMovementInput;
+            _smoothMovementInput = Vector3.Lerp(_smoothMovementInput, direction, Time.fixedDeltaTime * _speedSmoothing);
         }
 
-        public virtual Vector3 MoveUpdate(Vector3 direction)
+        public Vector3 MoveLogic(Vector3 direction)
         {
 
             CalculateMovementSmoothing(direction);
-            _finalMove = ((_smoothMovementInput * _movingSpeed)) * Time.deltaTime;
+            _finalMove = ((_smoothMovementInput * _movingSpeed)) * Time.fixedDeltaTime;
 
             if (_smoothMovementInput.magnitude <= 0.01f)
             {

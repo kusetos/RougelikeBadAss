@@ -23,7 +23,7 @@ public class PlayerGravity
     public float GravityScale => _gravityScale;
     public void UpdateVelocity()
     {
-        _velocity += _gravityForce * _gravityScale * Time.deltaTime;
+        _velocity += _gravityForce * _gravityScale * Time.fixedDeltaTime;
     }
     public Vector3 Velocity
     {

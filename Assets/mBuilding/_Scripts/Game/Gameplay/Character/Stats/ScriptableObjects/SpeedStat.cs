@@ -6,6 +6,4 @@ using UnityEngine;
 
 public class SpeedStat : BaseStat
 {
-    [SerializeField] private float _speed;
-    public float Speed => _speed;
 }

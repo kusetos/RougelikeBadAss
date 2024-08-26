@@ -1,6 +1,7 @@
 using Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement;
 using Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash;
 using Assets.mBuilding._Scripts.Game.Gameplay.ScriptableObjects;
+using mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,11 @@ public class CharacterSystemInstaller : MonoInstaller
             .FromInstance(input)
             .AsSingle();
 
+        Container
+            .Bind<IDashInput>()
+            .To<DashInput>()
+            .AsCached();
+
         PlayerGravity gravity = new(_gravityConfig);
         Container.Bind<PlayerGravity>()
             .FromInstance(gravity)
@@ -35,11 +41,11 @@ public class CharacterSystemInstaller : MonoInstaller
             .AsSingle();
 
 
-        MovementWithDash _movement = new (_moveConfig);
-        Container.
-            BindInterfacesAndSelfTo<MovementWithDash>()
-            .FromInstance(_movement)
-            .AsCached();
+        // MovementWithDash _movement = new (_moveConfig);
+        // Container.
+        //     BindInterfacesAndSelfTo<MovementWithDash>()
+        //     .FromInstance(_movement)
+        //     .AsCached();
 
         BaseMovement _basemovement = new(_moveConfig);
         Container.

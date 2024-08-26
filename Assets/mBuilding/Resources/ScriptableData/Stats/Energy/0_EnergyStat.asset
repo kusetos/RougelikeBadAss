@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a143900414d4d0aae80f3aff946aa7, type: 3}
   m_Name: 0_EnergyStat
   m_EditorClassIdentifier: 
-  _statInfo: basinc energy
-  _energy: 100
+  _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _description: basic energy value
+  _name: energy level 0
+  _value: 100
+  _costToUpgrade: 2
+  _type: 2

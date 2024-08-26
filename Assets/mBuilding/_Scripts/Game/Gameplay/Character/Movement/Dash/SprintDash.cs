@@ -4,21 +4,21 @@ using Zenject;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash
 {
-    [CreateAssetMenu(fileName = "new SprintDash", menuName = "Movement/Dashes/SprintDash")]
+    //[CreateAssetMenu(fileName = "new SprintDash", menuName = "Movement/Dashes/SprintDash")]
 
-    public class SprintDash : DashStrategy
+    public class SprintDash : IDashStrategy
     {
 
         public float _sprintSpeed = 1.5f;
 
 
-        public override void DoDash(Transform transform)
+        public void DoDash(Transform transform)
         {
             CharacterMovemet characterMovemet = transform.GetComponent<CharacterMovemet>();
             characterMovemet.SetSpeedMultiplier = _sprintSpeed;
             Debug.Log("Sprint");
         }
-        public override void StopDash(Transform transform)
+        public void StopDash(Transform transform)
         {
             CharacterMovemet characterMovemet = transform.GetComponent<CharacterMovemet>();
             characterMovemet.ResetSpeedMultiplier();

@@ -7,4 +7,5 @@ public class StatLevels : ScriptableObject
 {
     [SerializeField] private List<BaseStat> _levels;
     public List<BaseStat> Levels => _levels;
+    public bool IsPercent = false;
 }
