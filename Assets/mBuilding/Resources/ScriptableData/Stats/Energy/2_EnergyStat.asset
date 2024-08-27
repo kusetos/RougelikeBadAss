@@ -17,4 +17,4 @@ MonoBehaviour:
   _name: energy level
   _value: 200
   _costToUpgrade: 5
-  _type: 2
+  _index: 2

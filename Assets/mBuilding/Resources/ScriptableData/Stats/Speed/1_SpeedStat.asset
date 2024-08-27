@@ -17,4 +17,4 @@ MonoBehaviour:
   _name: speed lvl 1
   _value: 15
   _costToUpgrade: 1
-  _type: 3
+  _index: 1

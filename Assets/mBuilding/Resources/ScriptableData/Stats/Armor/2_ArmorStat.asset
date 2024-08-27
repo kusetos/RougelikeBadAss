@@ -17,4 +17,4 @@ MonoBehaviour:
   _name: Holy Armor
   _value: 30
   _costToUpgrade: 3
-  _type: 1
+  _index: 2

@@ -17,4 +17,4 @@ MonoBehaviour:
   _name: 1 lvl Armor
   _value: 10
   _costToUpgrade: 2
-  _type: 1
+  _index: 1

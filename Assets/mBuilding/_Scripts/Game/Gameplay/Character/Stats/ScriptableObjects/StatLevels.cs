@@ -6,6 +6,8 @@ using UnityEngine;
 public class StatLevels : ScriptableObject
 {
     [SerializeField] private List<BaseStat> _levels;
+    [SerializeField] private StatType _type;
+    public StatType Type => _type;
     public List<BaseStat> Levels => _levels;
     public bool IsPercent = false;
 }

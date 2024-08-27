@@ -17,4 +17,4 @@ MonoBehaviour:
   _name: health lvl 2
   _value: 150
   _costToUpgrade: 2
-  _type: 0
+  _index: 2

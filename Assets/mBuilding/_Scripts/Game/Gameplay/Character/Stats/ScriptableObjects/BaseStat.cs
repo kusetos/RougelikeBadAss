@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
@@ -11,8 +12,8 @@ public class BaseStat : ScriptableObject
     [SerializeField] private string _name;
     [SerializeField] private float _value;
     [SerializeField] private int _costToUpgrade;
-    [SerializeField] private StatType _type;
-    public StatType Type => _type;
+    [SerializeField] private int _index;
+    public int Index => _index;
     public virtual float Value => _value;
     public string Description => _description;
     public string Name => _name;
@@ -30,7 +31,7 @@ public class BaseStat : ScriptableObject
     private void GenerateDescription()
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append($"{Name}, {Type} increases up-to {Value}");
+        sb.Append($"{Name} increases up-to {Value}");
         _description = sb.ToString();
     }
 }
