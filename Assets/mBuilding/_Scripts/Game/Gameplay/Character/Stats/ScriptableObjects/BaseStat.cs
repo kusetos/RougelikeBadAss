@@ -13,6 +13,8 @@ public class BaseStat : ScriptableObject
     [SerializeField] private float _value;
     [SerializeField] private int _costToUpgrade;
     [SerializeField] private int _index;
+
+    public bool IsPercent = false;
     public int Index => _index;
     public virtual float Value => _value;
     public string Description => _description;

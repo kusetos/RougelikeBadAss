@@ -9,5 +9,4 @@ public class StatLevels : ScriptableObject
     [SerializeField] private StatType _type;
     public StatType Type => _type;
     public List<BaseStat> Levels => _levels;
-    public bool IsPercent = false;
 }

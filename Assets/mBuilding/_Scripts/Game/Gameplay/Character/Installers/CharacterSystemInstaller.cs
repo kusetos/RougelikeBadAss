@@ -68,28 +68,6 @@ public class CharacterSystemInstaller : MonoInstaller
 
 
 
-        Debug.Log("Dop dop yes yes");
-
-    }
-    private void BindDashes()
-    {
-
-/*        Container
-            .Bind<SlowDownDash>()
-            .AsSingle()
-            .WithArguments(0.7f);
-        Container
-            .Bind<JumpDash>()
-            .AsSingle()
-            .WithArguments(15f);
-        Container
-            .Bind<SprintDash>()
-            .AsSingle()
-            .WithArguments(1.5f);
-        Container
-            .Bind<QuickDash>()
-            .AsSingle()
-            .WithArguments(new Vector3(0f, 1f, 10f));*/
 
     }
 }

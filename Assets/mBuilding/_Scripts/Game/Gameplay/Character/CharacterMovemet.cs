@@ -79,7 +79,7 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
         ResetSpeedMultiplier();
         if (newDash == _currentDash) return;
 
-        Debug.Log("Switch DASH");
+        //Debug.Log("Switch DASH");
         _currentDash = newDash;
     }
     public float SetSpeedMultiplier { set { _speedMultiplier = value; } }
