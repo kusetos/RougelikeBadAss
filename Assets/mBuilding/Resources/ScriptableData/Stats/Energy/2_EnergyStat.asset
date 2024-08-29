@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 2_EnergyStat
   m_EditorClassIdentifier: 
   _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  _description: energy increased
-  _name: energy level
+  _description: 2_EnergyStat increases up-to 200
+  _name: 2_EnergyStat
   _value: 200
   _costToUpgrade: 5
   _index: 2
+  IsPercent: 0

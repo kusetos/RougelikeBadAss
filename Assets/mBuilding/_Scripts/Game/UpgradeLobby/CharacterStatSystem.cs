@@ -3,19 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 [System.Serializable]
-public class CharacterStatSystem : MonoBehaviour
+public class CharacterStatSystem
 {
-    [SerializeField] private StatContainer _healthContainer;
-    [SerializeField] private StatContainer _armorContainer;
-    [SerializeField] private StatContainer _speedContainer;
-    [SerializeField] private StatContainer _energyContainer;
+    private StatContainer _healthContainer;
+    private StatContainer _armorContainer;
+    private StatContainer _speedContainer;
+    private StatContainer _energyContainer;
 
-    private StatsSetup GenerateStatSetup()
+    public CharacterStatSystem(
+        [Inject(Id = "Health")] StatContainer health,
+        [Inject(Id = "Armor")] StatContainer armor,
+        [Inject(Id = "Speed")] StatContainer speed,
+        [Inject(Id = "Energy")] StatContainer energy)
+    {
+        _healthContainer = health;
+        _armorContainer = armor;
+        _speedContainer = speed;
+        _energyContainer = energy;
+
+    }
+
+    public StatsSetup GenerateStatSetup()
     {
         HealthStat health = _healthContainer.GetCurrentStat as HealthStat;
         ArmorStat armor = _armorContainer.GetCurrentStat as ArmorStat;
@@ -26,6 +39,7 @@ public class CharacterStatSystem : MonoBehaviour
         StatsSetup stats = new StatsSetup(health, armor, speed, energy);
         return stats;
     }
+
 }
 /*public static class StatIdx
 {
