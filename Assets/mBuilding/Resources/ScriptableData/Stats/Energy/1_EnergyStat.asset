@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a143900414d4d0aae80f3aff946aa7, type: 3}
   m_Name: 1_EnergyStat
   m_EditorClassIdentifier: 
-  _statInfo: 1 level energy
-  _energy: 150
+  _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _description: energy increased by 50
+  _name: energy level 1
+  _value: 150
+  _costToUpgrade: 2
+  _index: 1
+  IsPercent: 0

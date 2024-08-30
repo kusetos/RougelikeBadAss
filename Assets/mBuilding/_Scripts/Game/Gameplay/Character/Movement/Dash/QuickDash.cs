@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash
 {
-    [CreateAssetMenu(fileName = "new QuickDash", menuName = "Movement/Dashes/QuickDash")]
+    [CreateAssetMenu(fileName = "new QuickDash", menuName = "Ability/Dash/QuickDash")]
 
     public class QuickDash : DashStrategy
     {

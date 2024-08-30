@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca10eebec63340ec893cb538fc041ad, type: 3}
   m_Name: 2_SpeedStat
   m_EditorClassIdentifier: 
-  _statInfo: 15 speed stat
-  _speed: 20
+  _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _description: speed lvl 2 increases up-to 17
+  _name: speed lvl 2
+  _value: 17
+  _costToUpgrade: 4
+  _index: 2
+  IsPercent: 0

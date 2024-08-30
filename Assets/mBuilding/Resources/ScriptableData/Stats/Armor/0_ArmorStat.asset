@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86042363f6907437fb722e9b352e2844, type: 3}
   m_Name: 0_ArmorStat
   m_EditorClassIdentifier: 
-  _statInfo: base armor stat
-  _armor: 0
+  _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _description: basic armor
+  _name: 0 lvl Armor
+  _value: 0
+  _costToUpgrade: 3
+  _type: 1

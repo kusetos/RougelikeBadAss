@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash
 {
-    [CreateAssetMenu(fileName = "new SlowDownDash", menuName = "Movement/Dashes/SlowDash") ]
+    [CreateAssetMenu(fileName = "new SlowDownDash", menuName = "Ability/Dash/SlowDash") ]
     public class SlowDownDash : DashStrategy
     {
         public float _slowMultiplier = 0.7f;

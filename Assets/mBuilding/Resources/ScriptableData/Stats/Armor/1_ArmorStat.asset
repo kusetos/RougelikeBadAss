@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86042363f6907437fb722e9b352e2844, type: 3}
   m_Name: 1_ArmorStat
   m_EditorClassIdentifier: 
-  _statInfo: 2 level armor
-  _armor: 0.5
+  _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _description: decrease damage by 10%
+  _name: 1 lvl Armor
+  _value: 10
+  _costToUpgrade: 2
+  _index: 1

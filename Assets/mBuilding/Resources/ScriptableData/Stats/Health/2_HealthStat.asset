@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1552c6245e11453aa8da8e13a5032ac, type: 3}
   m_Name: 2_HealthStat
   m_EditorClassIdentifier: 
-  _statInfo: basic health info
-  _hitPoints: 20
+  _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _description: health lvl 2 increases up-to 125
+  _name: health lvl 2
+  _value: 125
+  _costToUpgrade: 2
+  _index: 2
+  IsPercent: 0

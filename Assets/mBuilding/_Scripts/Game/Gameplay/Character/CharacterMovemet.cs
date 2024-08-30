@@ -1,5 +1,6 @@
 using Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement;
 using Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash;
+using mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash;
 using System;
 using TMPro;
 using UnityEngine;
@@ -12,12 +13,13 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
     [SerializeField] private TextMeshProUGUI _speedText;
 
 
-    private IMoveInput _input;
+    private IMoveInput _moveInput;
     private CharacterController _characterController;
 
     private PlayerGravity _gravity;
     private BaseMovement _movement;
 
+    private IDashInput _dashInput;
     private DashStrategy _currentDash;
     private float _speedMultiplier = 1f;
 
@@ -25,9 +27,10 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
 
 
     [Inject]
-    public void Constructor(IMoveInput input, CharacterController characterController, PlayerGravity gravity, BaseMovement movement)
+    public void Constructor(IMoveInput input, IDashInput dashInput, CharacterController characterController, PlayerGravity gravity, BaseMovement movement)
     {
-        _input = input;
+        _moveInput = input;
+        _dashInput = dashInput;
         _characterController = characterController;
         _gravity = gravity;
         _movement = movement;
@@ -38,14 +41,16 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
     /// --------------------------------------------------------------------------
     public Button SprintDashButton; 
     public Button SlowDownDashButton; 
-    public Button QuickDashButton; 
+    public Button QuickDashButton;
+
 
     public SprintDash _sprintDash;
     public SlowDownDash _slowDownDash;
     public QuickDash _quickDash;
+    //private EmptyDash _emptyDash= new();
     public void SetGravityVel(float vel)
     {
-        _gravity.Velocity = new Vector3(0, 2, 0) + _input.GetDirection * vel;
+        _gravity.Velocity = new Vector3(0, 2, 0) + _moveInput.GetDirection * vel;
     }
 
     public void Dispose()
@@ -55,8 +60,10 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
 
     public void Initialize()
     {
-        _input.DashAction += () => { _currentDash.DoDash(this.transform); };
-        _input.StopDashAction += () => { _currentDash.StopDash(this.transform); };
+        SwitchDash(_sprintDash);
+        
+        _dashInput.OnDashAction += () => { _currentDash.DoDash(this.transform); };
+        _dashInput.OnDashActionEnd += () => { _currentDash.StopDash(this.transform); };
 
         ResetSpeedMultiplier();
 
@@ -64,7 +71,6 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
         SprintDashButton.onClick.AddListener(delegate { SwitchDash(_sprintDash); });
         SlowDownDashButton.onClick.AddListener(delegate { SwitchDash(_slowDownDash); });
 
-        SwitchDash(_slowDownDash);
 
     }
 
@@ -73,7 +79,7 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
         ResetSpeedMultiplier();
         if (newDash == _currentDash) return;
 
-        Debug.Log("Switch DASH");
+        //Debug.Log("Switch DASH");
         _currentDash = newDash;
     }
     public float SetSpeedMultiplier { set { _speedMultiplier = value; } }
@@ -82,19 +88,23 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
     /// _------------------------------------------------------------------------
     private void Update()
     {
-        Vector3 motion = _movement.MoveUpdate(_input.GetDirection) * _speedMultiplier + _gravity.Velocity * Time.deltaTime;    
-        _characterController.Move(motion);
-        _gravity.GravityUpdate(_characterController);
+
     }
 
-    private void FixedUpdate() => UpdateSpeedUI();
+    private void FixedUpdate()
+    {
+        Vector3 motion = _movement.MoveLogic(_moveInput.GetDirection) * _speedMultiplier + _gravity.Velocity * Time.fixedDeltaTime;    
+        _characterController.Move(motion);
+        _gravity.GravityUpdate(_characterController);
+        UpdateSpeedUI();
+    } 
 
     public void UpdateSpeedUI()
     {
         if (_speedText)
         {
             float horizontalMagtitude
-                = new Vector3 (_movement.MoveUpdate(_input.GetDirection).x, 0f,_movement.MoveUpdate(_input.GetDirection).z).magnitude
+                = new Vector3 (_movement.MoveLogic(_moveInput.GetDirection).x, 0f,_movement.MoveLogic(_moveInput.GetDirection).z).magnitude
                 * _speedMultiplier;
             _speedText.text = ((int)(horizontalMagtitude * 1000)).ToString();
         }

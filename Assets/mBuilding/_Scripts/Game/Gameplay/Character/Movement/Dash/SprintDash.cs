@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash
 {
-    [CreateAssetMenu(fileName = "new SprintDash", menuName = "Movement/Dashes/SprintDash")]
+    [CreateAssetMenu(fileName = "new SprintDash", menuName = "Ability/Dash/SprintDash")]
 
     public class SprintDash : DashStrategy
     {

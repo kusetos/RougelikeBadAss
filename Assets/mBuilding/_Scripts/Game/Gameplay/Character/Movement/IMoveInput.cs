@@ -7,7 +7,5 @@ namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement
     public interface IMoveInput 
     {
         public Vector3 GetDirection { get; }
-        public event Action DashAction;
-        public event Action StopDashAction;
     }
 }
