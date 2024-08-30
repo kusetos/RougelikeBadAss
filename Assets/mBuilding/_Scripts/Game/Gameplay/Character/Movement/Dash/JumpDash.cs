@@ -5,9 +5,9 @@ using Zenject;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash
 {
-    public class EmptyDash : IDashStrategy
+    public class EmptyDash : DashStrategy
     {
-        public void DoDash(Transform movement){}
-        public void StopDash(Transform transform){}
+        public override void DoDash(Transform movement){}
+        public override void StopDash(Transform transform){}
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class StatContainer : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class StatContainer : MonoBehaviour
 
     [SerializeField] private Button _increaseButton;
     [SerializeField] private Button _decreaseButton;
+
+    [Inject] private StatCoin _coin;
 
     private int _currentStatLevel = 0;
     private BaseStat _currentStat;
@@ -32,6 +35,7 @@ public class StatContainer : MonoBehaviour
     private void IncreaseStat()
     {
         if (_currentStatLevel == _levels.Count-1) return;
+        if(!_coin.TryBuyStat()) return;
 
         _currentStatLevel += 1;
         UpdateUI();
@@ -40,6 +44,7 @@ public class StatContainer : MonoBehaviour
     private void DecreaseStat()
     {
         if (_currentStatLevel == 0) return;
+        if(!_coin.TrySellStat()) return;
 
         _currentStatLevel -= 1;
         UpdateUI();

@@ -17,7 +17,7 @@ public class SetupLobbyInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<CharacterStatSystem>().AsSingle();
 
         ///Make coins SYSTEM!!!!!!!!!!!!!!!!
-        ///Container.Bind<StatCoins>().AsSingle();
+        Container.Bind<StatCoin>().AsSingle().WithArguments(10);
 
     }
 }

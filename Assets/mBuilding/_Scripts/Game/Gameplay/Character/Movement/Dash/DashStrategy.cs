@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement
 {
-    public interface IDashStrategy
+
+    public abstract class DashStrategy : ScriptableObject
     {
         public abstract void DoDash(Transform transform);
         public abstract void StopDash(Transform transform);

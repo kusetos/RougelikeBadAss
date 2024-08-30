@@ -20,7 +20,7 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
     private BaseMovement _movement;
 
     private IDashInput _dashInput;
-    private IDashStrategy _currentDash;
+    private DashStrategy _currentDash;
     private float _speedMultiplier = 1f;
 
 
@@ -41,13 +41,13 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
     /// --------------------------------------------------------------------------
     public Button SprintDashButton; 
     public Button SlowDownDashButton; 
-    public Button QuickDashButton; 
+    public Button QuickDashButton;
 
 
-    public SprintDash _sprintDash = new();
-    public SlowDownDash _slowDownDash = new();
-    public QuickDash _quickDash = new();
-    public EmptyDash _emptyDash= new();
+    public SprintDash _sprintDash;
+    public SlowDownDash _slowDownDash;
+    public QuickDash _quickDash;
+    //private EmptyDash _emptyDash= new();
     public void SetGravityVel(float vel)
     {
         _gravity.Velocity = new Vector3(0, 2, 0) + _moveInput.GetDirection * vel;
@@ -60,7 +60,7 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
 
     public void Initialize()
     {
-        SwitchDash(_emptyDash);
+        SwitchDash(_sprintDash);
         
         _dashInput.OnDashAction += () => { _currentDash.DoDash(this.transform); };
         _dashInput.OnDashActionEnd += () => { _currentDash.StopDash(this.transform); };
@@ -74,7 +74,7 @@ public class CharacterMovemet : MonoBehaviour, IDisposable, IInitializable
 
     }
 
-    public void SwitchDash(IDashStrategy newDash)
+    public void SwitchDash(DashStrategy newDash)
     {
         ResetSpeedMultiplier();
         if (newDash == _currentDash) return;

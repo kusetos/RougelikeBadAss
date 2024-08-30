@@ -4,23 +4,23 @@ using Zenject;
 
 namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash
 {
-    //[CreateAssetMenu(fileName = "new QuickDash", menuName = "Movement/Dashes/QuickDash")]
+    [CreateAssetMenu(fileName = "new QuickDash", menuName = "Ability/Dash/QuickDash")]
 
-    public class QuickDash : IDashStrategy
+    public class QuickDash : DashStrategy
     {
         private PlayerGravity _gravity;
 
         public float _jumpForce = 20f;
 
 
-        public void DoDash(Transform transform)
+        public override void DoDash(Transform transform)
         {
             CharacterMovemet characterMovemet = transform.GetComponent<CharacterMovemet>();
             characterMovemet.SetGravityVel(_jumpForce);
 
         }
 
-        public void StopDash(Transform transform)
+        public override void StopDash(Transform transform)
         {
         }
     }

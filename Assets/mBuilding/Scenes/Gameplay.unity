@@ -16388,6 +16388,10 @@ MonoBehaviour:
   SprintDashButton: {fileID: 413209232}
   SlowDownDashButton: {fileID: 1005869308}
   QuickDashButton: {fileID: 983601082}
+  _sprintDash: {fileID: 11400000, guid: 81e9f726ab4472d42977b8a6725106bf, type: 2}
+  _slowDownDash: {fileID: 11400000, guid: 8d3a793b6408342469355b7c5ed09566, type: 2}
+  _quickDash: {fileID: 11400000, guid: 1e899ffa3cf4cf44ebd3e3013683d17f, type: 2}
+  _emptyDash: {fileID: 0}
 --- !u!1 &722736429
 GameObject:
   m_ObjectHideFlags: 0

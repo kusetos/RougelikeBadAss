@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   _description: Holy Armor, Armor increases up-to 0.3
-  _name: Holy Armor
-  _value: 30
+  _name: Armor lvl 2
+  _value: 25
   _costToUpgrade: 3
   _index: 2
+  IsPercent: 0

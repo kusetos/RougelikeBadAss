@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ca10eebec63340ec893cb538fc041ad, type: 3}
-  m_Name: 2_SpeedStat
+  m_Script: {fileID: 11500000, guid: c1552c6245e11453aa8da8e13a5032ac, type: 3}
+  m_Name: 3_HealthStat
   m_EditorClassIdentifier: 
   _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  _description: speed lvl 2 increases up-to 17
-  _name: speed lvl 2
-  _value: 17
-  _costToUpgrade: 4
+  _description: health increased up to 150
+  _name: health lvl 3
+  _value: 150
+  _costToUpgrade: 2
   _index: 2
   IsPercent: 0

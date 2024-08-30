@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-[System.Serializable]
 public class CharacterStatSystem
 {
     private StatContainer _healthContainer;

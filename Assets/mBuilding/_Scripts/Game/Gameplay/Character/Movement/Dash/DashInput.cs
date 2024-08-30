@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class DashInput : IDashInput
 {
-    IDashStrategy _currentDash;
+    DashStrategy _currentDash;
     private PlayerInput _input;
     private InputAction _dashAction;
 

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 2_HealthStat
   m_EditorClassIdentifier: 
   _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  _description: health increased up to 150
+  _description: health lvl 2 increases up-to 125
   _name: health lvl 2
-  _value: 150
+  _value: 125
   _costToUpgrade: 2
   _index: 2
+  IsPercent: 0
