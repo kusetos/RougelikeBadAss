@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 513c8a35504d66c46ad4e5d980b321a8, type: 3}
   m_Name: SlowDownDash_character
   m_EditorClassIdentifier: 
+  color: {r: 0, g: 0.3764143, b: 1, a: 0}
+  _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _name: Slow Down
+  _description: 'Slowing Down by 30%. Makes you slow and  invisible. Bla Bla Bla
+    Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla '
   _slowMultiplier: 0.7

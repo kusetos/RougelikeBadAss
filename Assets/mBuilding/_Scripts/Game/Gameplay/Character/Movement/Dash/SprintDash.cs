@@ -9,8 +9,7 @@ namespace Assets.mBuilding._Scripts.Game.Gameplay.Character.Movement.Dash
     public class SprintDash : DashStrategy
     {
 
-        public float _sprintSpeed = 1.5f;
-
+        [SerializeField] private float _sprintSpeed = 1.5f;
 
         public override void DoDash(Transform transform)
         {

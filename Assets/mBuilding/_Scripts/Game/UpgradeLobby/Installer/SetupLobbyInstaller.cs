@@ -19,5 +19,7 @@ public class SetupLobbyInstaller : MonoInstaller
         ///Make coins SYSTEM!!!!!!!!!!!!!!!!
         Container.Bind<StatCoin>().AsSingle().WithArguments(10);
 
+        Container.Bind<DashManager>().FromComponentInHierarchy().AsSingle();
+
     }
 }

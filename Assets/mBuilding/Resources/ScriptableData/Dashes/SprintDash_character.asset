@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a31ad805d1c6e499c23e91bbef224b, type: 3}
   m_Name: SprintDash_character
   m_EditorClassIdentifier: 
+  color: {r: 1, g: 0, b: 0.7599125, a: 0}
+  _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _name: Sprint
+  _description: Sprint with 1.5x speed
   _sprintSpeed: 1.5

@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c2d552939e02944b1af48ebb06fcaa, type: 3}
   m_Name: QuickDash_character
   m_EditorClassIdentifier: 
+  color: {r: 0.011017084, g: 1, b: 0, a: 0}
+  _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _name: Quick Dash
+  _description: Classic Quick Dash
   _jumpForce: 20
